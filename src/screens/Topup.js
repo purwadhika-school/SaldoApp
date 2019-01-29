@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import { View, Text, TextInput, TouchableOpacity } from "react-native"
+import { connect } from "react-redux"
+import { hitungTotalSaldo } from "../actions/index"
 
 class Topup extends Component {
   constructor(props) {
@@ -12,11 +14,6 @@ class Topup extends Component {
 
   static navigationOptions = {
     header: null
-  }
-
-  hitungTotalSaldo = saldoAmount => {
-    const result = saldoAmount + parseInt(this.state.amountFromUser)
-    this.props.navigation.navigate("ThankyouPage", { updatedSaldo: result })
   }
 
   render() {
@@ -32,7 +29,11 @@ class Topup extends Component {
         />
         <TouchableOpacity
           style={{ backgroundColor: "green" }}
-          onPress={() => this.hitungTotalSaldo(saldoAmount)}
+          onPress={() =>
+            this.props.dispatch(
+              hitungTotalSaldo(saldoAmount, this.state.amountFromUser)
+            )
+          }
         >
           <Text style={{ margin: 10, color: "white", fontSize: 15 }}>Pay</Text>
         </TouchableOpacity>
@@ -41,7 +42,7 @@ class Topup extends Component {
   }
 }
 
-export default Topup
+export default connect()(Topup)
 
 // 1. Tampilkan current saldo
 // 2. TextInput untuk menampung angka yg diinput user
