@@ -19,7 +19,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Setup />
+        <Router />
       </Provider>
     )
   }
@@ -43,7 +43,7 @@ const Router = createStackNavigator(
   }
 )
 
-export default Router
+export default App
 
 // 1. Navigasi ke halaman lain
 // 2. Topup dan update saldo di halaman thankyou (Redux)
